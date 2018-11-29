@@ -13,7 +13,7 @@ class Game {
         phaser.load.image('ground', 'assets/platform.png');
         phaser.load.image('star', 'assets/star.png');
         phaser.load.image('bomb', 'assets/bomb.png');
-        phaser.load.spritesheet('dude', 
+        phaser.load.spritesheet('dude',
             'assets/dude.png',
             { frameWidth: 32, frameHeight: 48 }
         );
@@ -30,51 +30,51 @@ class Game {
         platforms.create(50, 250, 'ground');
         platforms.create(750, 220, 'ground');
 
-	    this.player = phaser.physics.add.sprite(100, 450, 'dude');
-	    
-	    this.player.setBounce(0.2);
-	    this.player.setCollideWorldBounds(true);
-	    
-	    phaser.anims.create({
-	        key: 'left',
-	        frames: phaser.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
-	        frameRate: 10,
-	        repeat: -1
-	    });
-	    
-	    phaser.anims.create({
-	        key: 'turn',
-	        frames: [ { key: 'dude', frame: 4 } ],
-	        frameRate: 20
-	    });
-	    
-	    phaser.anims.create({
-	        key: 'right',
-	        frames: phaser.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
-	        frameRate: 10,
-	        repeat: -1
-	    });
+        this.player = phaser.physics.add.sprite(100, 450, 'dude');
 
-	    phaser.physics.add.collider(this.player, platforms);
+        this.player.setBounce(0.2);
+        this.player.setCollideWorldBounds(true);
+
+        phaser.anims.create({
+            key: 'left',
+            frames: phaser.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        phaser.anims.create({
+            key: 'turn',
+            frames: [ { key: 'dude', frame: 4 } ],
+            frameRate: 20
+        });
+
+        phaser.anims.create({
+            key: 'right',
+            frames: phaser.anims.generateFrameNumbers('dude', { start: 5, end: 8 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+        phaser.physics.add.collider(this.player, platforms);
     }
 
     update(phaser) {
-	    let cursors = phaser.input.keyboard.createCursorKeys();
+        let cursors = phaser.input.keyboard.createCursorKeys();
 
-	    if (cursors.left.isDown) {
-	        this.player.setVelocityX(-160);
-	        this.player.anims.play('left', true);
-	    } else if (cursors.right.isDown) {
-	        this.player.setVelocityX(160);
-	        this.player.anims.play('right', true);
-	    } else {
-	        this.player.setVelocityX(0);
-	        this.player.anims.play('turn');
-	    }
-	    
-	    if (cursors.up.isDown && this.player.body.touching.down) {
-	        this.player.setVelocityY(-330);
-	    }
+        if (cursors.left.isDown) {
+            this.player.setVelocityX(-160);
+            this.player.anims.play('left', true);
+        } else if (cursors.right.isDown) {
+            this.player.setVelocityX(160);
+            this.player.anims.play('right', true);
+        } else {
+            this.player.setVelocityX(0);
+            this.player.anims.play('turn');
+        }
+
+        if (cursors.up.isDown && this.player.body.touching.down) {
+            this.player.setVelocityY(-330);
+        }
     }
 }
 
